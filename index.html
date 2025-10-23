@@ -4,24 +4,20 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Sound Grid Programme — Choose Your Version</title>
-  <meta name="description" content="Launch the Sound Grid Programme in desktop or mobile layout. Pick once or remember your choice for next time." />
-  <meta property="og:title" content="Sound Grid Programme — Choose Your Version" />
-  <meta property="og:description" content="Open the Desktop or Mobile experience of Sound Grid." />
-  <meta property="og:type" content="website" />
+  <meta name="description" content="Launch the Sound Grid Programme in desktop or mobile layout." />
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
       --ink:#0f172a; --muted:#475569; --line:#e2e8f0; 
       --accent:#2563eb; --accent2:#16a34a; --bg1:#f8fafc; --bg2:#eff6ff;
-      --card:#ffffff; --ok:#16a34a; --warn:#f59e0b;
-      --radius:18px; --shadow:0 10px 30px rgba(2,6,23,.08);
+      --card:#ffffff; --radius:18px; --shadow:0 10px 30px rgba(2,6,23,.08);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
     body{margin:0;font-family:"Lexend",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);
       background:linear-gradient(135deg,var(--bg1),var(--bg2));}
     .wrap{min-height:100%;display:grid;place-items:center;padding:24px}
-    .container{width:min(980px,100%);}
+    .container{width:min(980px,100%);}    
     .hero{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center;margin-bottom:20px}
     h1{font-size:clamp(1.6rem,2.4vw+1rem,2.6rem);line-height:1.1;margin:0}
     .subtitle{color:var(--muted);font-size:clamp(.95rem,1vw+.7rem,1.125rem)}
@@ -32,37 +28,15 @@
     .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);
       padding:20px;display:flex;flex-direction:column;gap:14px}
     .badge{display:inline-flex;align-items:center;gap:8px;font-weight:700;border-radius:999px;padding:6px 12px;border:1px solid var(--line);width:max-content}
-    .badge svg{width:18px;height:18px}
-    .headline{display:flex;align-items:center;gap:10px}
     .headline h2{font-size:1.25rem;margin:0}
     .desc{color:var(--muted);font-size:.98rem}
 
     .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px}
-    .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;transition:transform .04s ease, box-shadow .2s ease}
-    .btn:hover{box-shadow:0 6px 16px rgba(2,6,23,.07)}
-    .btn:active{transform:translateY(1px)}
+    .btn{appearance:none;border:1px solid var(--line);background:#fff;border-radius:14px;padding:10px 14px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-block}
     .btn.primary{background:var(--accent);border-color:var(--accent);color:#fff}
     .btn.success{background:var(--accent2);border-color:var(--accent2);color:#fff}
 
-    .rec{display:flex;align-items:center;gap:8px;font-size:.95rem;color:var(--muted)}
-    .rec svg{width:18px;height:18px}
-
-    .row{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .row .left{display:flex;align-items:center;gap:10px}
-    .remember{display:flex;align-items:center;gap:10px}
-    label.switch{position:relative;display:inline-block;width:50px;height:30px}
-    label.switch input{opacity:0;width:0;height:0}
-    .slider{position:absolute;cursor:pointer;inset:0;background:#cbd5e1;border-radius:999px;transition:.2s}
-    .slider:before{content:"";position:absolute;height:24px;width:24px;left:3px;top:3px;background:white;border-radius:50%;transition:.2s}
-    input:checked + .slider{background:var(--accent)}
-    input:checked + .slider:before{transform:translateX(20px)}
-
-    .note{margin-top:10px;color:var(--muted);font-size:.9rem}
     .foot{margin-top:18px;text-align:center;color:var(--muted);font-size:.85rem}
-    .pill{display:inline-flex;gap:8px;align-items:center;background:#fff;border:1px dashed var(--line);padding:8px 12px;border-radius:999px}
-
-    .toast{position:fixed;inset:auto 16px 16px auto;background:#0ea5e9;color:#001826;padding:10px 14px;border-radius:12px;box-shadow:var(--shadow);font-weight:700;opacity:0;transform:translateY(10px);transition:.25s}
-    .toast.show{opacity:1;transform:none}
   </style>
 </head>
 <body>
@@ -70,42 +44,35 @@
   <div class="container">
     <header class="hero">
       <h1>Sound Grid Programme</h1>
-      <p class="subtitle">Choose the experience that fits your device. You can also remember your choice for next time.</p>
+      <p class="subtitle">Choose the version you want to use.</p>
     </header>
 
     <main class="grid" aria-label="Version chooser">
       <!-- Desktop card -->
-      <section class="card" id="card-desktop">
-        <span class="badge" title="Best for laptops/desktops">
-          <!-- monitor icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-          Desktop
-        </span>
+      <section class="card">
+        <span class="badge" title="Best for laptops/desktops">Desktop</span>
         <div class="headline"><h2>Desktop Version</h2></div>
-        <p class="desc">Optimised for larger screens with a spacious grid layout and keyboard-friendly controls.</p>
-        $1
+        <p class="desc">Optimised for larger screens.</p>
+        <div class="actions">
+          <a class="btn primary" href="https://limkimsze-maker.github.io/Sound_Grid/" target="_blank" rel="noopener">Open Desktop</a>
         </div>
       </section>
 
       <!-- Mobile card -->
-      <section class="card" id="card-mobile">
-        <span class="badge" title="Best for phones">
-          <!-- phone icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 19h2"/></svg>
-          Mobile
-        </span>
+      <section class="card">
+        <span class="badge" title="Best for phones">Mobile</span>
         <div class="headline"><h2>Mobile Version</h2></div>
-        <p class="desc">Touch-first, single‑column layout that fits small screens without pinch‑zoom.</p>
-        $1
+        <p class="desc">Designed for small screens and touch.</p>
+        <div class="actions">
+          <a class="btn success" href="https://limkimsze-maker.github.io/Sound_Grid_on_Phone/" target="_blank" rel="noopener">Open Mobile</a>
         </div>
       </section>
     </main>
 
     <footer class="foot">
-      © 2025 Lim Kim Sze · Built for SLS‑friendly sharing · <span title="Open links in new tab">Links open in a new tab</span>
+      © 2025 Lim Kim Sze · SLS‑friendly links open in a new tab
     </footer>
   </div>
 </div>
-<!-- No script needed: all advanced features disabled -->
 </body>
 </html>
