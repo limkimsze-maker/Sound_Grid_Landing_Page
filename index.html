@@ -71,7 +71,6 @@
     <header class="hero">
       <h1>Sound Grid Programme</h1>
       <p class="subtitle">Choose the experience that fits your device. You can also remember your choice for next time.</p>
-      <div class="pill" id="device-pill" aria-live="polite">Detecting your device…</div>
     </header>
 
     <main class="grid" aria-label="Version chooser">
@@ -84,14 +83,7 @@
         </span>
         <div class="headline"><h2>Desktop Version</h2></div>
         <p class="desc">Optimised for larger screens with a spacious grid layout and keyboard-friendly controls.</p>
-        <div class="actions">
-          <a class="btn primary" href="https://limkimsze-maker.github.io/Sound_Grid/" target="_blank" rel="noopener" id="open-desktop">Open Desktop</a>
-          <button class="btn" data-copy="https://limkimsze-maker.github.io/Sound_Grid/">Copy link</button>
-        </div>
-        <div class="rec" id="rec-desktop" hidden>
-          <!-- star icon -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15 11 24 11 17 17 20 26 12 20 4 26 7 17 0 11 9 11" transform="scale(.8) translate(3 -1)"/></svg>
-          Recommended for your device
+        $1
         </div>
       </section>
 
@@ -104,127 +96,16 @@
         </span>
         <div class="headline"><h2>Mobile Version</h2></div>
         <p class="desc">Touch-first, single‑column layout that fits small screens without pinch‑zoom.</p>
-        <div class="actions">
-          <a class="btn success" href="https://limkimsze-maker.github.io/Sound_Grid_on_Phone/" target="_blank" rel="noopener" id="open-mobile">Open Mobile</a>
-          <button class="btn" data-copy="https://limkimsze-maker.github.io/Sound_Grid_on_Phone/">Copy link</button>
-        </div>
-        <div class="rec" id="rec-mobile" hidden>
-          <!-- star icon reused -->
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15 11 24 11 17 17 20 26 12 20 4 26 7 17 0 11 9 11" transform="scale(.8) translate(3 -1)"/></svg>
-          Recommended for your device
+        $1
         </div>
       </section>
     </main>
-
-    <section class="card" style="margin-top:16px">
-      <div class="row">
-        <div class="left">
-          <div class="remember">
-            <label class="switch">
-              <input type="checkbox" id="remember">
-              <span class="slider" aria-hidden="true"></span>
-            </label>
-            <div>
-              <div style="font-weight:700">Remember my choice</div>
-              <div class="note">When on, you’ll be sent straight to your chosen version next time.</div>
-            </div>
-          </div>
-        </div>
-        <div class="actions">
-          <button class="btn" id="detect">Detect my device</button>
-          <button class="btn" id="clear">Clear saved choice</button>
-        </div>
-      </div>
-    </section>
 
     <footer class="foot">
       © 2025 Lim Kim Sze · Built for SLS‑friendly sharing · <span title="Open links in new tab">Links open in a new tab</span>
     </footer>
   </div>
 </div>
-
-<div id="toast" class="toast" role="status" aria-live="polite">Link copied</div>
-
-<script>
-(function(){
-  const DESKTOP_URL = 'https://limkimsze-maker.github.io/Sound_Grid/';
-  const MOBILE_URL  = 'https://limkimsze-maker.github.io/Sound_Grid_on_Phone/';
-  const KEY = 'soundgrid.choice'; // 'desktop' | 'mobile'
-
-  const rememberEl = document.getElementById('remember');
-  const toast = document.getElementById('toast');
-  const devicePill = document.getElementById('device-pill');
-  const recDesktop = document.getElementById('rec-desktop');
-  const recMobile = document.getElementById('rec-mobile');
-
-  // Utility: show toast
-  function showToast(msg){
-    toast.textContent = msg || 'Done';
-    toast.classList.add('show');
-    setTimeout(()=>toast.classList.remove('show'), 1400);
-  }
-
-  // Copy link buttons
-  document.querySelectorAll('[data-copy]')?.forEach(btn=>{
-    btn.addEventListener('click', async ()=>{
-      const link = btn.getAttribute('data-copy');
-      try{ await navigator.clipboard.writeText(link); showToast('Link copied'); }
-      catch{ showToast('Copy failed'); }
-    });
-  });
-
-  // Remember choice toggle persistence
-  rememberEl.addEventListener('change', ()=>{
-    localStorage.setItem(KEY + '.remember', rememberEl.checked ? '1':'0');
-  });
-
-  // Auto redirect if a remembered choice exists
-  (function maybeRedirect(){
-    const remember = localStorage.getItem(KEY + '.remember') === '1';
-    const choice = localStorage.getItem(KEY);
-    if(remember && choice){
-      const url = choice === 'desktop' ? DESKTOP_URL : MOBILE_URL;
-      window.location.replace(url);
-    }
-  })();
-
-  // Device detection + recommendation badges
-  function isProbablyMobile(){
-    // Combine viewport width and coarse pointer check
-    const narrow = window.matchMedia('(max-width: 800px)').matches;
-    const coarse = window.matchMedia('(pointer: coarse)').matches;
-    return narrow || coarse;
-  }
-
-  function updateRecommendationUI(){
-    const mobile = isProbablyMobile();
-    devicePill.textContent = mobile ? 'Looks like a phone/tablet — Mobile is recommended' : 'Looks like a laptop/desktop — Desktop is recommended';
-    recMobile.hidden = !mobile; recDesktop.hidden = mobile;
-  }
-
-  updateRecommendationUI();
-  window.addEventListener('resize', updateRecommendationUI, {passive:true});
-
-  // Detect button
-  document.getElementById('detect').addEventListener('click', updateRecommendationUI);
-
-  // Clear choice
-  document.getElementById('clear').addEventListener('click', ()=>{
-    localStorage.removeItem(KEY); localStorage.removeItem(KEY + '.remember');
-    rememberEl.checked = false; showToast('Saved choice cleared');
-  });
-
-  // Save choice when user clicks either Open button
-  document.getElementById('open-desktop').addEventListener('click', ()=>{
-    localStorage.setItem(KEY, 'desktop');
-  });
-  document.getElementById('open-mobile').addEventListener('click', ()=>{
-    localStorage.setItem(KEY, 'mobile');
-  });
-
-  // Restore toggle state
-  rememberEl.checked = localStorage.getItem(KEY + '.remember') === '1';
-})();
-</script>
+<!-- No script needed: all advanced features disabled -->
 </body>
 </html>
